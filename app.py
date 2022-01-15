@@ -6,15 +6,26 @@ import requests
 app = flask.Flask(__name__)
 
 
+@app.route('/', methods=['GET'])
+def uptime_event():
+    return flask.jsonify({
+        'uptime': 'Tudo certo por aqui',
+    })
+
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
+    print flask.request.environ
+
     responses = []
 
     data = flask.request.json
+
     for commit in data.get('commits', []):
         valid_users = _get_valid_users()
         if commit['author'].get('email') in valid_users or not valid_users:
             responses.append(score_task(task_id, direction))
+
+    print data.get('history_items', {});
 
     return flask.jsonify(responses)
 
