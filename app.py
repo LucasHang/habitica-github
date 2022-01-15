@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['GET'])
 def uptime_event():
     return flask.jsonify({
-        'uptime': 'Tudo certo por aqui',
+        'uptime': 'Tudo certo por aqui v2',
     })
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
