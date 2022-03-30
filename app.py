@@ -14,22 +14,25 @@ def uptime_event():
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
-    print('flask.request.environ 1.0')
+    print('-- flask.request.environ 1.1 --')
     print(flask.request.environ)
 
     responses = []
 
     data = flask.request.json
 
+    print('-- data --')
+    print(data)
+
     for commit in data.get('commits', []):
         valid_users = _get_valid_users()
         if commit['author'].get('email') in valid_users or not valid_users:
             responses.append(score_task(task_id, direction))
 
-    print('responses')
+    print('-- responses --')
     print(responses)
 
-    print('history_items')
+    print('-- history_items --')
     print(data.get('history_items', {}))
 
     return flask.jsonify(responses)
@@ -51,7 +54,7 @@ def _get_valid_users():
     valid_users = map(str.strip, filter(
         None, os.environ['VALID_USERS'].split(',')))
 
-    print('valid_users')
+    print('-- valid_users --')
     print(valid_users)
 
     return valid_users
