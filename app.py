@@ -9,12 +9,12 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['GET'])
 def uptime_event():
     return flask.jsonify({
-        'uptime': 'Tudo certo por aqui 1.4',
+        'uptime': 'Tudo certo por aqui 1.5',
     })
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
-    print('-- flask.request.environ 1.4 --')
+    print('-- flask.request.environ 1.5 --')
     print(flask.request.environ)
 
     responses = []
@@ -26,6 +26,10 @@ def score_task_event(task_id, direction):
 
     for commit in data.get('commits', []):
         valid_users = _get_valid_users()
+        print('-- commit author --')
+        print(commit['author'].get('email'))
+        print('-- valid user --')
+        print(commit['author'].get('email') in valid_users)
         if commit['author'].get('email') in valid_users or not valid_users:
             responses.append(score_task(task_id, direction))
 
@@ -53,9 +57,6 @@ def score_task(task_id, direction):
 def _get_valid_users():
     valid_users = map(str.strip, filter(
         None, os.environ['VALID_USERS'].split(',')))
-
-    print('-- valid_users --')
-    print(valid_users)
 
     return valid_users
 
