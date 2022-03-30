@@ -14,7 +14,7 @@ def uptime_event():
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
-    print('flask.request.environ')
+    print('flask.request.environ 1.0')
     print(flask.request.environ)
 
     responses = []
@@ -53,7 +53,7 @@ def _get_valid_users():
 
     print('valid_users')
     print(valid_users)
-    
+
     return valid_users
 
 
