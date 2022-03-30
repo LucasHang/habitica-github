@@ -50,6 +50,10 @@ def score_task(task_id, direction):
 def _get_valid_users():
     valid_users = map(str.strip, filter(
         None, os.environ['VALID_USERS'].split(',')))
+
+    print('valid_users')
+    print(valid_users)
+    
     return valid_users
 
 
