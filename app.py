@@ -47,6 +47,9 @@ def score_task_event(task_id, direction):
             if historyItem['after'].get('type') == 'closed':
                 responses.append(score_task(task_id, direction))
 
+    print('-- responses --')
+    print(responses)
+
     return flask.jsonify(responses)
 
 
