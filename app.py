@@ -50,6 +50,9 @@ def score_task_event(task_id, direction):
         isValidUser = historyItem['user'].get('email') in valid_users or not valid_users
         isStatusClosed = historyItem['after'].get('type') == 'closed'
         if isValidUser and isStatusClosed:
+            print('-- call score_task --')
+            print(task_id)
+            print(direction)
             responses.append(score_task(task_id, direction))
 
     print('-- responses --')
