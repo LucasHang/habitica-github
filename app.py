@@ -47,9 +47,10 @@ def score_task_event(task_id, direction):
         print('-- after type closed --')
         print(historyItem['after'].get('type') == 'closed')
 
-        if historyItem['user'].get('email') in valid_users or not valid_users:
-            if historyItem['after'].get('type') == 'closed':
-                responses.append(score_task(task_id, direction))
+        isValidUser = historyItem['user'].get('email') in valid_users or not valid_users
+        isStatusClosed = historyItem['after'].get('type') == 'closed'
+        if isValidUser and isStatusClosed:
+            responses.append(score_task(task_id, direction))
 
     print('-- responses --')
     print(responses)
