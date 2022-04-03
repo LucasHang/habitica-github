@@ -34,6 +34,9 @@ def score_task_event(task_id, direction):
         print(commit['author'].get('email') in valid_users)
 
         if commit['author'].get('email') in valid_users or not valid_users:
+            print('-- call score_task --')
+            print(task_id)
+            print(direction)
             responses.append(score_task(task_id, direction))
 
     # for habitica integration
