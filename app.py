@@ -9,12 +9,12 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['GET'])
 def uptime_event():
     return flask.jsonify({
-        'uptime': 'Tudo certo por aqui 2.1',
+        'uptime': 'Tudo certo por aqui 2.2',
     })
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
-    print('-- flask.request.environ 2.1 --')
+    print('-- flask.request.environ 2.2 --')
     print(flask.request.environ)
 
     responses = []
