@@ -9,12 +9,12 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['GET'])
 def uptime_event():
     return flask.jsonify({
-        'uptime': 'Tudo certo por aqui 1.7',
+        'uptime': 'Tudo certo por aqui 1.8',
     })
 
 @app.route('/tasks/<task_id>/score/<direction>', methods=['POST'])
 def score_task_event(task_id, direction):
-    print('-- flask.request.environ 1.7 --')
+    print('-- flask.request.environ 1.8 --')
     print(flask.request.environ)
 
     responses = []
@@ -24,6 +24,7 @@ def score_task_event(task_id, direction):
     print('-- data --')
     print(data)
 
+    # for github integration
     for commit in data.get('commits', []):
         valid_users = _get_valid_users()
         print('-- commit author --')
@@ -33,11 +34,18 @@ def score_task_event(task_id, direction):
         if commit['author'].get('email') in valid_users or not valid_users:
             responses.append(score_task(task_id, direction))
 
-    print('-- responses --')
-    print(responses)
-
-    print('-- history_items --')
-    print(data.get('history_items', {}))
+    # for habitica integration
+    for historyItem in data.get('history_items', []):
+        valid_users = _get_valid_users()
+        print('-- historyItem user --')
+        print(historyItem['user'].get('email'))
+        print('-- valid user --')
+        print(historyItem['user'].get('email') in valid_users)
+        print('-- after type --')
+        print(historyItem['after'].get('type'))
+        if historyItem['user'].get('email') in valid_users or not valid_users:
+            if historyItem['after'].get('type') == 'closed':
+                responses.append(score_task(task_id, direction))
 
     return flask.jsonify(responses)
 
