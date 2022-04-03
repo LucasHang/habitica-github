@@ -27,12 +27,10 @@ def score_task_event(task_id, direction):
     # for github integration
     for commit in data.get('commits', []):
         valid_users = _get_valid_users()
-
         print('-- commit author --')
         print(commit['author'].get('email'))
         print('-- valid user --')
         print(commit['author'].get('email') in valid_users)
-
         if commit['author'].get('email') in valid_users or not valid_users:
             print('-- call score_task --')
             print(task_id)
@@ -42,14 +40,12 @@ def score_task_event(task_id, direction):
     # for habitica integration
     for historyItem in data.get('history_items', []):
         valid_users = _get_valid_users()
-
         print('-- historyItem user --')
         print(historyItem['user'].get('email'))
         print('-- valid user --')
         print(historyItem['user'].get('email') in valid_users)
         print('-- after type closed --')
         print(historyItem['after'].get('type') == 'closed')
-
         isValidUser = historyItem['user'].get('email') in valid_users or not valid_users
         isStatusClosed = historyItem['after'].get('type') == 'closed'
         if isValidUser and isStatusClosed:
